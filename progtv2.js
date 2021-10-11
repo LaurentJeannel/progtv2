@@ -95,7 +95,7 @@ var getData = function(period, bouquets, chaines, tts, callback)
   var url = getUrlFromPeriodAndBouquet(period, bouquets[0]);
 
   request({ 'uri' : url }, function (err, response, body)
-  {
+  {console.log(err)
     if (err || response.statusCode != 200) {
       console.log('ProgTV2 : error on url : ' + url);
       tts = "Je n'ai pas pu effectuer l'action";
@@ -103,7 +103,7 @@ var getData = function(period, bouquets, chaines, tts, callback)
     }
 
     var text = scrap(body, chaines);
-    
+    console.log(text,"ddddddddd")
     if (text == "Je n'ai pas pu effectuer l'action")
     {
       return false;
@@ -162,22 +162,22 @@ var scrap = function(body, chaines) {
   var progtv = new Array();
 
 
-  $('.broadcastItem').each(function(index) {
+  $('.broadcastCard').each(function(index) {
 
    try{ 
-    var hourStart = $(this).find('.broadcastItem-hour').text().trim();
+    var hourStart = $(this).find('.broadcastCard-start').text().trim();
   }
   catch(err){hourStart=0}
   console.log(hourStart.trim()+" hourStart")
    
   try{
-    var channelName = $(this).find('.broadcastItem-channel a').attr('title').trim();
+    var channelName = $('.channelHeading-label').eq(index).text().trim();
   }
   catch(err){channelName=0}
   console.log(channelName+" channelName")
   
    try{
-    var title = $(this).find('.broadcastItem-title').text().trim();  
+    var title = $(this).find('.broadcastCard-title').text().trim(); 
  }
  catch (err){title=0}
  console.log(title +" title")
@@ -371,7 +371,7 @@ var getInfosChannels = function(progtv, chaines) {
 
   if (progtv.length == 0 || chaines.length == 0)
   {
-    return "Je n'ai pas pu effectuer l'action";
+    return "Je n'ai pas pu effhuiyuhihuihiectuer l'action";
   }
 
   var tts = '';
