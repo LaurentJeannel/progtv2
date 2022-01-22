@@ -1,5 +1,6 @@
-exports.action = function(data)
-{ 
+exports.action = function(data){
+
+
 try{
  
 callback=""
@@ -93,8 +94,8 @@ var getData = function(period, bouquets, chaines, tts, callback)
   var request = require('request');
 
   var url = getUrlFromPeriodAndBouquet(period, bouquets[0]);
-
-  request({ 'uri' : url }, function (err, response, body)
+request({ 'uri' : url ,jar: true}, function (err, response, body)
+  //request({ 'uri' : url }, function (err, response, body)
   {console.log(err)
     if (err || response.statusCode != 200) {
       console.log('ProgTV2 : error on url : ' + url);
@@ -481,4 +482,77 @@ function sortArrayWithKey(a,b) {
   return 0;
 }
 
-}catch(err){console.log(err);return false}
+}catch(err){console.log(err);return false
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+return false
+var request = require('request');
+var cheerio = require('cheerio');
+var url = "https://www.programme-tv.net/programme/programme-tnt.html";
+//require('events').EventEmitter.prototype._maxListeners = 100;
+ //var url = 'http://www.programme.tv';
+    request({ 'uri' : url ,jar: true}, function (err, response, body){
+    
+      console.log(err)
+  
+          if (err || response.statusCode != 200) {
+              console.log('ProgTV2 : error on url : ' + url);
+              return false;
+          }
+      var $ = require('cheerio').load(body, { xmlMode: true, ignoreWhitespace: true, lowerCaseTags: true });
+      
+
+
+ let links = $("html body main#corps div.site_content div.page.bouquet div.bouquet-grid div.bouquet-epgGrid div.bouquet-channelGroup div.bouquet-cards", body);
+    links.each(function(i,link){
+       // console.log("hhhhhhh       " +i+$(link).text().trim()+i+"     ******");
+    //console.log(i +"aaaaaaaaaaaaaaaa  "+$(link).text().trim().replace(new RegExp("  ","gi"),""))
+
+var tempa="aaaaaaaaaaaaaaaa  "+$(link).find('p').text()
+    var temp= "aaaaaaaaaaaaaaaa  "+$(link).text()
+    tempa=tempa.replace(new RegExp("  ","gi"),"")
+console.log(tempa)
+var tempa= "aaaaaaaaaaaaaaaa  "+$(link).find('a').text()
+   var temp= "aaaaaaaaaaaaaaaa  "+$(link).text()
+    tempa=tempa.replace(new RegExp("  ","gi"),"")
+console.log(tempa)
+var temp= "aaaaaaaaaaaaaaaa  "+$(link).find('a').eq(0).text()
+   // var temp=i +"aaaaaaaaaaaaaaaa  "+$(link).text()
+    temp=temp.replace(new RegExp("  ","gi"),"")
+console.log(temp)
+var temp= "aaaaaaaaaaaaaaaa  "+$(link).find('a').eq(1).text()
+   // var temp=i +"aaaaaaaaaaaaaaaa  "+$(link).text()
+    temp=temp.replace(new RegExp("  ","gi"),"")
+console.log(temp)
+
+    })
+
+})
+
+
+
+}
+
+
+
